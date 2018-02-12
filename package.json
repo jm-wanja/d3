@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.1",
   "dependencies": {
-    "topojson": "^1.6.27"
+    "topojson": "^1.6.27",
+    "topojson-client": "^3.0.0"
   }
 }
