@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <script src="http://d3js.org/d3.v4.js"></script>
+        <script src="http://d3js.org/d3.v4.min.js"></script>
+    </head>
+    <body>
+        <h1>Counties</h1>
+
+        <script type="text/javascript">
+
+            //Width and height
+            var w = window.innerWidth;
+            var h = window.innerHeight;
+
+            var projection = d3.geoMercator()
+                            .translate([w/2, h/2])
+                            .scale(200);
+
+            //Define default path generator
+            var path = d3.geoPath()
+                        .projection(projection);
+
+
+            //Create SVG element
+            var svg = d3.select("body")
+                        .append("svg")
+                        .attr("width", w)
+                        .attr("height", h);
+
+            var rectangle = svg.append("rect")
+                        .attr("height", h).attr("width", w)
+                        .attr("fill", "transparent")
+                        .attr("stroke", "black")
+                        .attr("stroke-width", 1);
+
+            //Load in GeoJSON data
+            d3.json("counties.json", function(error, json) {
+
+                if (error) {
+                    console.log(error, "error")
+                } else {
+                    console.log(json, "data")
+                }
+
+                //Bind data and create one path per GeoJSON feature
+                svg.selectAll("path")
+                   .data(json.features)
+                   .enter()
+                   .append("path")
+                   .attr("d", path)
+                   .style("fill", "#666666")
+
+        });
+
+        </script>
+    </body>
+</html>
